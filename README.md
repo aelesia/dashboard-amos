@@ -1,44 +1,49 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Package
 
-## Available Scripts
+## Scripts
 
-In the project directory, you can run:
+- "start": "TSC_COMPILE_ON_ERROR=true & PORT=3080 & react-scripts start",
+  - React has a bug where it refuses to start due to internal ESLint rules failing
+  - TSC_COMPILE_ON_ERROR forces the server to always start
+- "test_coverage": "yarn test -- --coverage --watchAll=false --collectCoverageFrom=**/src/utils/**",
+  - Only does test coverage for utils folder as UI components will be handled by storybook
+- "compile": "tsc --noEmit && yarn lint"
+  - Run to ensure that the code has no major problems
 
-### `yarn start`
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+# tsconfig
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+Default settings were used
 
-### `yarn test`
+# eslint
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- @typescript-eslint/eslint-plugin
+- @typescript-eslint/parser
+- eslint
+- eslint-config-prettier
+- eslint-plugin-prettier
+- eslint-plugin-react
+- prettier
 
-### `yarn build`
+1) ESLint with Typescript
+2) ESLint with Prettier
+3) ESLint with React rules
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Rules
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+- 'prettier/prettier': 'warn'`
+  - Prettier is about formatting, and formatting should never throw errors 
+- 'react/display-name': 'warn',
+  - Not a breaking issue and should not be an error.
+- '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
+  - Not a breaking issue and should not be an error.
+- 'no-console': ['warn', { allow: ['info', 'warn', 'error'] }],
+  - Only console.log should be warned as developers use it to print info but forget to remove it
+  - Info, warn & error are usually used explicitly for a good reason
+- 'react/prop-types': 'off' // Props are handled by Typescript
+  - Proptypes are handled by Typescript
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+# Prettier
 
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+- printWidth: 100
+  - 80 is too short. 100 is perfectly readable for anyone with a widescreen monitor.
