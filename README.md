@@ -10,10 +10,14 @@
 - "compile": "tsc --noEmit && yarn lint"
   - Run to ensure that the code has no major problems
 
-
 # tsconfig
 
 Default settings were used
+
+## Absolute Imports
+
+- Import files using absolute imports such as `src/utils/Sample` instead of `../../src/utils/Sample`
+- This makes it easier to move files around
 
 # eslint
 
