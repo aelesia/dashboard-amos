@@ -9,6 +9,11 @@
   },
   "devDependencies": {
     "@siliconjungles/rn-scripts": "^0.0.0-42",
+    "@storybook/addon-actions": "^5.3.19",
+    "@storybook/addon-links": "^5.3.19",
+    "@storybook/addons": "^5.3.19",
+    "@storybook/preset-create-react-app": "^3.0.0",
+    "@storybook/react": "^5.3.19",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
@@ -34,7 +39,9 @@
     "test_coverage": "yarn test -- --coverage --watchAll=false --collectCoverageFrom=**/src/utils/**",
     "lint": "eslint . --ext .ts,.tsx",
     "lint_fix": "yarn lint --fix",
-    "compile": "tsc --noEmit && yarn lint"
+    "compile": "tsc --noEmit && yarn lint",
+    "storybook": "start-storybook -p 9009 -s public",
+    "build-storybook": "build-storybook -s public"
   },
   "eslintConfig": {
     "extends": "react-app"

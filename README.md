@@ -82,3 +82,7 @@ Due to the complications of handling multi environments (dotenv, babel, webpack)
 `ENV=develop yarn start`
 
 - Will patch all files located in env/develop/.cfg.develop
+
+## Storybook
+
+`yarn storybook`
