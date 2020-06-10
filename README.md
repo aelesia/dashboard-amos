@@ -51,3 +51,34 @@ Default settings were used
 
 - printWidth: 100
   - 80 is too short. 100 is perfectly readable for anyone with a widescreen monitor.
+
+# Configs
+
+Configs - environmental or otherwise - should be loaded from a `Cfg` file,  so that there is a centralized place that keeps track of all configurations to avoid duplicate configurations or fragmentation.
+
+# Environment
+
+Environment variables should never be accessed directly from process.env due to the following reasons:
+
+1) It isn't typesafe and as such doesn't offer autocomplete
+2) It does not warn you if you made a mistake
+3) It makes it harder to refactor
+
+Instead, define it inside `Env` and access it from `Cfg`.
+
+## Runtime patching
+
+Due to the complications of handling multi environments (dotenv, babel, webpack), the limitations of some frameworks (Android/iOS), and too many frameworks trying to be smart, I've found that the most straightforward way to handle multiple environments is simply by replacing the environment files before compilation. It may be crude, but it's simple and it works.
+
+**.cfg.xxx**
+
+- xxx denotes the environment
+- `file1 => file2` - Copies file1 into the location of file2
+
+`yarn start`
+
+- Will default to `local` environment
+
+`ENV=develop yarn start`
+
+- Will patch all files located in env/develop/.cfg.develop
