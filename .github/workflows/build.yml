@@ -1,0 +1,93 @@
+name: Build
+on:
+  push:
+    branches:
+      - 'master'
+      - 'develop'
+      - 'release/**'
+      - 'hotfix/**'
+      - 'ci/**'
+
+jobs:
+  compile:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
+
+      - name: Cache node_modules
+        id: cache_node_modules
+        uses: actions/cache@v1
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock') }}
+      - if: steps.cache_node_modules.outputs.cache-hit != 'true'
+        run: yarn install
+
+      - run: yarn run compile
+
+  test_coverage:
+    needs: compile
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '12'
+
+      - name: Cache node_modules
+        id: cache_node_modules
+        uses: actions/cache@v1
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock') }}
+      - if: steps.cache_node_modules.outputs.cache-hit != 'true'
+        run: yarn install
+
+      - run: yarn run test_coverage
+
+
+#  deploy:
+#    if: contains(github.ref, 'refs/heads/develop') || contains(github.ref, 'refs/heads/master')
+#    needs: [compile,test_coverage]
+#    runs-on: ubuntu-latest
+#    steps:
+#      - uses: actions/checkout@v1
+#      - uses: actions/setup-node@v1
+#        with:
+#          node-version: '12'
+#
+#      - name: Cache node_modules
+#        id: cache_node_modules
+#        uses: actions/cache@v1
+#        with:
+#          path: node_modules
+#          key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock') }}
+#      - if: steps.cache_node_modules.outputs.cache-hit != 'true'
+#        run: yarn install
+#
+#      - if: contains(github.ref, 'refs/heads/develop')
+#        run: yarn run env_develop && yarn _build && cat .env
+#
+#      - uses: netlify/actions/cli@master
+#        if: contains(github.ref, 'refs/heads/develop')
+#        env:
+#          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+#          NETLIFY_SITE_ID: ''
+#        with:
+#          args: deploy --dir=build --prod
+#          secrets: '["NETLIFY_AUTH_TOKEN", "NETLIFY_SITE_ID"]'
+#
+#      - if: contains(github.ref, 'refs/heads/master')
+#        run: yarn run env_production && yarn _build && cat .env
+#
+#      - uses: netlify/actions/cli@master
+#        if: contains(github.ref, 'refs/heads/master')
+#        env:
+#          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+#          NETLIFY_SITE_ID: ''
+#        with:
+#          args: deploy --dir=build --prod
+#          secrets: '["NETLIFY_AUTH_TOKEN", "NETLIFY_SITE_ID"]'
