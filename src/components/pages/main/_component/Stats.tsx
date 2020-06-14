@@ -59,7 +59,8 @@ const StatCard: React.FC<{ url?: string; children?: ReactElement[] | ReactElemen
 export const Stats: React.FC<{ history: PostAnalytics[] }> = p => {
   const { history } = p
 
-  const medianDuration = median(history)
+  // const medianDuration = median(history)
+  const averageDuration = average(history)
   const shortestPost = shortest(history)
   const longestPost = longest(history)
 
@@ -78,8 +79,8 @@ export const Stats: React.FC<{ history: PostAnalytics[] }> = p => {
         </Text>
       </StatCard>
       <StatCard>
-        <Text>Median</Text>
-        <Text style={{ fontSize: sz.lg, fontWeight: 300 }}>{prettyTime(medianDuration)}</Text>
+        <Text>Average</Text>
+        <Text style={{ fontSize: sz.lg, fontWeight: 300 }}>{prettyTime(averageDuration)}</Text>
       </StatCard>
     </__>
   )

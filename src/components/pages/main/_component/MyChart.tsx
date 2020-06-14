@@ -18,7 +18,7 @@ export const MyChart: React.FC<{ history: PostAnalytics[] }> = p => {
   const [id] = useState(uuid())
   useEffect(() => {
     const values = p.history.reverse().map((it, index) => ({
-      index: it.post.date,
+      index: it.post.date._f('DD MMM YY HH:mm'),
       value: it.duration / _.time.ONE_HOUR
     }))
 
@@ -34,15 +34,13 @@ export const MyChart: React.FC<{ history: PostAnalytics[] }> = p => {
         type: 'pow',
         exponent: 2.5,
         alias: 'Duration',
-        formatter: (duration: number) => {
-          return prettyTime(duration * _.time.ONE_HOUR)
-        }
+        formatter: (duration: number) => prettyTime(duration * _.time.ONE_HOUR)
       },
       index: {
         showLast: true,
-        alias: 'Date',
-        type: 'category',
-        formatter: (date: Date) => date._f('ddd, DD MMM  YYYY HH:mm:ss')
+        alias: 'Date'
+        // type: 'category',
+        // formatter: (date: Date) => date._f('ddd, DD MMM YYYY HH:mm:ss')
       }
     })
 
