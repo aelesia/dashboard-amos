@@ -34,7 +34,7 @@
   },
   "scripts": {
     "env": "npx @siliconjungles/rn-scripts replace_files path=env/${ENV:-local}/.cfg.${ENV:-local}",
-    "start": "yarn env && TSC_COMPILE_ON_ERROR=true && PORT=3080 react-scripts start",
+    "start": "yarn env && TSC_COMPILE_ON_ERROR=true PORT=3080 react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "test_all": "yarn test --watchAll=false",
