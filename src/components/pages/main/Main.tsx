@@ -1,10 +1,11 @@
 import React from 'react'
 import { View } from 'src/components/wrapper/RNWrapper'
 import { Counter } from 'src/components/pages/main/_component/Counter'
-import { PostHistory } from 'src/data/types/Types.type'
+import { PostAnalytics, PostHistory } from 'src/data/types/Types.type'
 import history from 'src/data/data.json'
 import { _ } from '@aelesia/commons'
 import { __ } from 'src/components/base/__'
+import { Stats } from 'src/components/pages/main/_component/Stats'
 
 export const MainData: React.FC = () => {
   return (
@@ -26,6 +27,15 @@ export const MainData: React.FC = () => {
   )
 }
 
+function mapTimings(history: PostHistory[]): PostAnalytics[] {
+  return history.slice(0, history.length - 1).map((post, i) => {
+    return {
+      post,
+      duration: post.date.elapsed(history[i + 1].date)
+    }
+  })
+}
+
 export const MainPage: React.FC<{
   history: PostHistory[]
 }> = p => {
@@ -33,6 +43,7 @@ export const MainPage: React.FC<{
   return (
     <__>
       <Counter lastPostDate={history.first().date} />
+      <Stats history={mapTimings(history)} />
     </__>
   )
 }

@@ -1,11 +1,16 @@
 export type PostHistory = {
-    id:        string;
-    author:    string;
-    body:      string;
-    date:      Date;
-    kind:      string;
-    thread_id: string;
-    title:     string;
-    url:       string;
-    parent_id: string;
+  id: string
+  author: string
+  body: string
+  date: Date
+  kind: string
+  thread_id: string
+  title: string
+  url: string
+  parent_id: string
+}
+
+export type PostAnalytics = {
+  post: PostHistory
+  duration: number
 }

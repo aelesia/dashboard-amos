@@ -27,14 +27,12 @@ export const sq = {
 
 export type StyleSpace = keyof typeof sp
 export const sp = {
-  xxs: 6,
-  xs: 12,
-  sm: 24,
-  md: 32,
-  lg: 48,
-  xl: 64,
-  xxl: 96,
-  xxxl: 160
+  xxs: 4,
+  xs: 8,
+  sm: 16,
+  md: 24,
+  lg: 32,
+  xl: 48
 }
 
 export const cl = {
@@ -46,5 +44,7 @@ export const cl = {
   grey4: '#CCC',
   grey_background: '#F0F0F0',
   black: '#000',
-  dark_purple: '#1F1237'
+  dark_purple: '#1F1237',
+  red: '#E4100E',
+  green: '#36A93F'
 }

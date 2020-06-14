@@ -4,7 +4,7 @@ import { _ } from '@aelesia/commons'
 import { Duration } from '@aelesia/commons/dist/src/collections/util/TimeUtil'
 import { useForceUpdate } from 'src/hooks/useForceUpdate'
 import { __ } from 'src/components/base/__'
-import { sz, wt } from 'src/style/Style'
+import { sp, sz, wt } from 'src/style/Style'
 import { Card } from 'antd'
 
 const Box: React.FC<{
@@ -14,7 +14,7 @@ const Box: React.FC<{
   const { number, text } = p
 
   return (
-    <View style={{ alignItems: 'center' }}>
+    <View style={{ alignItems: 'center', marginLeft: sp.sm, marginRight: sp.sm }}>
       <Text style={{ fontSize: sz.lg, fontWeight: 400 }}>{number}</Text>
       <Text style={{ textTransform: 'uppercase', fontWeight: 100 }}>{text}</Text>
     </View>
@@ -32,8 +32,8 @@ export const Counter: React.FC<{
     return () => clearInterval(interval)
   }, [])
   return (
-    <Card style={{ padding: 0 }} hoverable>
-      <__ row style={{ justifyContent: 'space-between' }}>
+    <Card style={{ padding: 0, margin: sp.xxs }} hoverable>
+      <__ row style={{ justifyContent: 'center' }}>
         <Box number={duration.days} text={'days'} />
         <Box number={duration.hours} text={'hours'} />
         <Box number={duration.mins} text={'minutes'} />
