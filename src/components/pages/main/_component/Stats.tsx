@@ -58,7 +58,6 @@ const StatCard: React.FC<{ url?: string; children?: ReactElement[] | ReactElemen
 
 export const Stats: React.FC<{ history: PostAnalytics[] }> = p => {
   const { history } = p
-  // console.log(timings)
 
   const medianDuration = median(history)
   const shortestPost = shortest(history)

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import { View } from 'src/components/wrapper/RNWrapper'
 import { Counter } from 'src/components/pages/main/_component/Counter'
 import { PostAnalytics, PostHistory } from 'src/data/types/Types.type'
@@ -6,6 +6,7 @@ import history from 'src/data/data.json'
 import { _ } from '@aelesia/commons'
 import { __ } from 'src/components/base/__'
 import { Stats } from 'src/components/pages/main/_component/Stats'
+import { MyChart } from 'src/components/pages/main/_component/MyChart'
 
 export const MainData: React.FC = () => {
   return (
@@ -40,10 +41,13 @@ export const MainPage: React.FC<{
   history: PostHistory[]
 }> = p => {
   const { history } = p
+  const timings = useMemo(() => mapTimings(history), [history])
+
   return (
     <__>
       <Counter lastPostDate={history.first().date} />
-      <Stats history={mapTimings(history)} />
+      <Stats history={timings} />
+      <MyChart history={timings} />
     </__>
   )
 }
