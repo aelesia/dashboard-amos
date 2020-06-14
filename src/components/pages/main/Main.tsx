@@ -1,9 +1,10 @@
 import React from 'react'
-import { View } from '../../wrapper/RNWrapper'
+import { View } from 'src/components/wrapper/RNWrapper'
 import { Counter } from 'src/components/pages/main/_component/Counter'
 import { PostHistory } from 'src/data/types/Types.type'
 import history from 'src/data/data.json'
 import { _ } from '@aelesia/commons'
+import { __ } from 'src/components/base/__'
 
 export const MainData: React.FC = () => {
   return (
@@ -30,8 +31,8 @@ export const MainPage: React.FC<{
 }> = p => {
   const { history } = p
   return (
-    <View>
+    <__>
       <Counter lastPostDate={history.first().date} />
-    </View>
+    </__>
   )
 }

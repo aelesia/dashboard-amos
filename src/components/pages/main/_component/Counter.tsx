@@ -3,6 +3,23 @@ import { View, Text } from 'src/components/wrapper/RNWrapper'
 import { _ } from '@aelesia/commons'
 import { Duration } from '@aelesia/commons/dist/src/collections/util/TimeUtil'
 import { useForceUpdate } from 'src/hooks/useForceUpdate'
+import { __ } from 'src/components/base/__'
+import { sz, wt } from 'src/style/Style'
+import { Card } from 'antd'
+
+const Box: React.FC<{
+  number: string | number
+  text: string
+}> = p => {
+  const { number, text } = p
+
+  return (
+    <View style={{ alignItems: 'center' }}>
+      <Text style={{ fontSize: sz.lg, fontWeight: 400 }}>{number}</Text>
+      <Text style={{ textTransform: 'uppercase', fontWeight: 100 }}>{text}</Text>
+    </View>
+  )
+}
 
 export const Counter: React.FC<{
   lastPostDate: Date
@@ -15,12 +32,13 @@ export const Counter: React.FC<{
     return () => clearInterval(interval)
   }, [])
   return (
-    <View>
-      {/*<Text>{duration.years} years</Text>*/}
-      <Text>{duration.days} days</Text>
-      <Text>{duration.hours} hours</Text>
-      <Text>{duration.mins} minutes</Text>
-      <Text>{duration.secs} seconds</Text>
-    </View>
+    <Card style={{ padding: 0 }} hoverable>
+      <__ row style={{ justifyContent: 'space-between' }}>
+        <Box number={duration.days} text={'days'} />
+        <Box number={duration.hours} text={'hours'} />
+        <Box number={duration.mins} text={'minutes'} />
+        <Box number={duration.secs} text={'seconds'} />
+      </__>
+    </Card>
   )
 }
