@@ -7,6 +7,7 @@ import { _ } from '@aelesia/commons'
 import { __ } from 'src/components/base/__'
 import { Stats } from 'src/components/pages/main/_component/Stats'
 import { MyChart } from 'src/components/pages/main/_component/MyChart'
+import { RoseChart } from 'src/components/pages/main/_component/RoseChart'
 
 export const MainData: React.FC = () => {
   return (
@@ -47,7 +48,8 @@ export const MainPage: React.FC<{
     <__>
       <Counter lastPostDate={history.first().date} />
       <Stats history={timings} />
-      <MyChart history={timings} />
+      {/*<MyChart history={timings} />*/}
+      <RoseChart history={timings} />
     </__>
   )
 }
