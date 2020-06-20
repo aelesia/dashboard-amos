@@ -1,11 +1,13 @@
-import React, { useEffect } from 'react'
-import { View, Text } from 'src/components/wrapper/RNWrapper'
+import React, { useEffect, useState } from 'react'
+import { Text, View } from 'src/components/wrapper/RNWrapper'
 import { _ } from '@aelesia/commons'
 import { Duration } from '@aelesia/commons/dist/src/collections/util/TimeUtil'
 import { useForceUpdate } from 'src/hooks/useForceUpdate'
 import { __ } from 'src/components/base/__'
-import { sp, sz, wt } from 'src/style/Style'
+import { sp, sz } from 'src/style/Style'
 import { Card } from 'antd'
+import { PostAnalytics } from 'src/data/types/Types.type'
+import { ProgressBar } from 'src/components/pages/main/_component/Counter/_component/ProgressBar'
 
 const Box: React.FC<{
   number: string | number
@@ -23,14 +25,18 @@ const Box: React.FC<{
 
 export const Counter: React.FC<{
   lastPostDate: Date
+  longestPost: PostAnalytics
 }> = p => {
   const { lastPostDate } = p
   const duration: Duration = _.time._duration(lastPostDate.timeSince())
+  const [percent] = useState((lastPostDate.timeSince() / p.longestPost.duration) * 100)
   const update = useForceUpdate()
+
   useEffect(() => {
     const interval = setInterval(() => update(), 1000)
     return () => clearInterval(interval)
   }, [])
+
   return (
     <Card style={{ padding: 0, margin: sp.xxs }} hoverable>
       <__ row style={{ justifyContent: 'center' }}>
@@ -39,6 +45,7 @@ export const Counter: React.FC<{
         <Box number={duration.mins} text={'minutes'} />
         <Box number={duration.secs} text={'seconds'} />
       </__>
+      <ProgressBar percent={99} />
     </Card>
   )
 }

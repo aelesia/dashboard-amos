@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react'
 import { View } from 'src/components/wrapper/RNWrapper'
-import { Counter } from 'src/components/pages/main/_component/Counter'
+import { Counter } from 'src/components/pages/main/_component/Counter/Counter'
 import { PostAnalytics, PostHistory } from 'src/data/types/Types.type'
 import history from 'src/data/data.json'
 import { _ } from '@aelesia/commons'
@@ -45,11 +45,34 @@ export const MainPage: React.FC<{
 }> = p => {
   const { history } = p
   const timings = useMemo(() => mapTimings(history), [history])
+  const longestPost = longest(timings)
+  const shortestPost = shortest(timings)
+
   return (
     <__ style={{ maxWidth: 960, margin: 'auto' }}>
-      <Counter lastPostDate={history.first().date} />
-      <Stats history={timings} />
+      <Counter lastPostDate={history.first().date} longestPost={longestPost} />
+      <Stats history={timings} longestPost={longestPost} shortestPost={shortestPost} />
       <Charts history={timings} />
     </__>
   )
+}
+
+function shortest(posts: PostAnalytics[]): PostAnalytics {
+  let shortest = posts[0]
+  posts.forEach(it => {
+    if (it.duration < shortest.duration) {
+      shortest = it
+    }
+  })
+  return shortest
+}
+
+function longest(posts: PostAnalytics[]): PostAnalytics {
+  let longest = posts[0]
+  posts.forEach(it => {
+    if (it.duration > longest.duration) {
+      longest = it
+    }
+  })
+  return longest
 }

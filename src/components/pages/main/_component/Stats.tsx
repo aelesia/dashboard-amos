@@ -22,26 +22,6 @@ function average(posts: PostAnalytics[]) {
   return sum / posts.length
 }
 
-function shortest(posts: PostAnalytics[]): PostAnalytics {
-  let shortest = posts[0]
-  posts.forEach(it => {
-    if (it.duration < shortest.duration) {
-      shortest = it
-    }
-  })
-  return shortest
-}
-
-function longest(posts: PostAnalytics[]): PostAnalytics {
-  let longest = posts[0]
-  posts.forEach(it => {
-    if (it.duration > longest.duration) {
-      longest = it
-    }
-  })
-  return longest
-}
-
 const StatCard: React.FC<{ url?: string; children?: ReactElement[] | ReactElement[] }> = p => {
   return p.url ? (
     <Link to={p.url ?? ''} style={{ flexGrow: 1 }}>
@@ -56,26 +36,28 @@ const StatCard: React.FC<{ url?: string; children?: ReactElement[] | ReactElemen
   )
 }
 
-export const Stats: React.FC<{ history: PostAnalytics[] }> = p => {
+export const Stats: React.FC<{
+  history: PostAnalytics[]
+  longestPost: PostAnalytics
+  shortestPost: PostAnalytics
+}> = p => {
   const { history } = p
 
   // const medianDuration = median(history)
   const averageDuration = average(history)
-  const shortestPost = shortest(history)
-  const longestPost = longest(history)
 
   return (
     <__ row>
-      <StatCard url={longestPost.post.url}>
+      <StatCard url={p.longestPost.post.url}>
         <Text>Longest</Text>
         <Text style={{ fontSize: sz.lg, fontWeight: 300, color: cl.green }}>
-          {prettyTime(longestPost.duration)}
+          {prettyTime(p.longestPost.duration)}
         </Text>
       </StatCard>
-      <StatCard url={shortestPost.post.url}>
+      <StatCard url={p.shortestPost.post.url}>
         <Text>Shortest</Text>
         <Text style={{ fontSize: sz.lg, fontWeight: 300, color: cl.red }}>
-          {prettyTime(shortestPost.duration)}
+          {prettyTime(p.shortestPost.duration)}
         </Text>
       </StatCard>
       <StatCard>
