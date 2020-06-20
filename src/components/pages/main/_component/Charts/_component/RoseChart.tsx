@@ -1,6 +1,6 @@
 import React, { CSSProperties, useEffect, useState } from 'react'
 import { Duration } from '@aelesia/commons/dist/src/collections/util/TimeUtil'
-import { _ } from '@aelesia/commons'
+import { _, IllegalStateErr } from '@aelesia/commons'
 import { useForceUpdate } from 'src/hooks/useForceUpdate'
 import { Card } from 'antd'
 import { sp, sz } from 'src/style/Style'
@@ -18,57 +18,57 @@ export const RoseChart: React.FC<{ history: PostAnalytics[] }> = p => {
   const [id] = useState(uuid())
   useEffect(() => {
     const monthlyCount = [
-      { month: 'January', count: 0 },
-      { month: 'February', count: 0 },
-      { month: 'March', count: 0 },
-      { month: 'April', count: 0 },
-      { month: 'May', count: 0 },
-      { month: 'June', count: 0 },
-      { month: 'December', count: 0 }
+      { month: 'Jan', count: 1 },
+      { month: 'Feb', count: 1 },
+      { month: 'Mar', count: 1 },
+      { month: 'Apr', count: 1 },
+      { month: 'May', count: 1 },
+      { month: 'Jun', count: 1 },
+      { month: 'Jul', count: 1 },
+      { month: 'Aug', count: 1 },
+      { month: 'Sep', count: 1 },
+      { month: 'Oct', count: 1 },
+      { month: 'Nov', count: 1 },
+      { month: 'Dec', count: 1 }
     ]
-    const map = p.history.map(it => it.post.date._f('MMMM'))
-    console.log(map)
+    const map = p.history.map(it => it.post.date._f('MMM'))
     map.forEach(month => {
       const obj = monthlyCount.find(it => it.month === month)
-      // @ts-ignore
+      if (!obj) throw new IllegalStateErr(`Unable to find month: ${month}`)
       obj.count = ++obj.count
     })
 
     const chart = new Chart({
       container: id,
       autoFit: true,
-      height: 500
+      height: 400
     })
-
     chart.data(monthlyCount)
-    chart.coordinate('theta', {
-      radius: 0.75
-    })
-
+    chart.coordinate('polar')
+    chart.axis(false)
     chart.tooltip({
-      showTitle: false,
       showMarkers: false
     })
-
+    chart.legend(false)
     chart
-      .interval()
-      .position('count')
-      .color('month')
-      .label('month', {
-        offset: -50,
-        style: {
-          textAlign: 'center',
-          fontSize: sz.md,
-          shadowBlur: 10,
-          shadowColor: 'rgba(0, 0, 0)',
-          fill: '#fff'
+      .scale({
+        count: {
+          type: 'pow',
+          exponent: 2,
+          formatter: (count: number) => count - 1
         }
       })
-      .adjust('stack')
-
-    chart.interaction('element-active')
-
+      .interval()
+      .position('month*count')
+      .label('month', {
+        offset: 15
+      })
+      .color('month')
+      .style({
+        lineWidth: 1,
+        stroke: '#fff'
+      })
     chart.render()
   }, [])
-  return <div style={{ padding: sp.sm }} id={id} />
+  return <div id={id} />
 }

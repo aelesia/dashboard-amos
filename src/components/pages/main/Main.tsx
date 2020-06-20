@@ -6,10 +6,12 @@ import history from 'src/data/data.json'
 import { _ } from '@aelesia/commons'
 import { __ } from 'src/components/base/__'
 import { Stats } from 'src/components/pages/main/_component/Stats'
-import { MyChart } from 'src/components/pages/main/_component/MyChart'
-import { RoseChart } from 'src/components/pages/main/_component/RoseChart'
+import { MyChart } from 'src/components/pages/main/_component/Charts/_component/MyChart'
+import { RoseChart } from 'src/components/pages/main/_component/Charts/_component/RoseChart'
+import { Charts } from 'src/components/pages/main/_component/Charts/Charts'
 
 export const MainData: React.FC = () => {
+  console.log('mainpage')
   return (
     <MainPage
       history={history.map<PostHistory>(it => {
@@ -43,13 +45,11 @@ export const MainPage: React.FC<{
 }> = p => {
   const { history } = p
   const timings = useMemo(() => mapTimings(history), [history])
-
   return (
-    <__>
+    <__ style={{ maxWidth: 960, margin: 'auto' }}>
       <Counter lastPostDate={history.first().date} />
       <Stats history={timings} />
-      {/*<MyChart history={timings} />*/}
-      <RoseChart history={timings} />
+      <Charts history={timings} />
     </__>
   )
 }
