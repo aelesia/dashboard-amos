@@ -63,7 +63,7 @@ export const RoseChart: React.FC<{ history: PostAnalytics[] }> = p => {
       .position('month*count')
       .label('count', {
         offset: -15,
-        content: it => (it.count > 1 ? it.count : '')
+        content: it => (it.count > 1 ? (it.count - 1).toString() : '')
       })
       .color('month')
       .style({

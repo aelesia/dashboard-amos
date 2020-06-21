@@ -5,7 +5,7 @@ import { Duration } from '@aelesia/commons/dist/src/collections/util/TimeUtil'
 import { useForceUpdate } from 'src/hooks/useForceUpdate'
 import { __ } from 'src/components/base/__'
 import { sp, sz } from 'src/style/Style'
-import { Card } from 'antd'
+import { Card, Modal } from 'antd'
 import { PostAnalytics } from 'src/data/types/Types.type'
 import { ProgressBar } from 'src/components/pages/main/_component/Counter/_component/ProgressBar'
 
@@ -45,7 +45,7 @@ export const Counter: React.FC<{
         <Box number={duration.mins} text={'minutes'} />
         <Box number={duration.secs} text={'seconds'} />
       </__>
-      <ProgressBar percent={99} />
+      <ProgressBar percent={percent} />
     </Card>
   )
 }

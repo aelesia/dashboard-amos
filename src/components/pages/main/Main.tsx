@@ -53,7 +53,7 @@ export const MainPage: React.FC<{
     <__ style={{ maxWidth: 960, margin: 'auto' }}>
       <Counter lastPostDate={history.first().date} longestPost={longestPost} />
       <Stats history={timings} longestPost={longestPost} shortestPost={shortestPost} />
-      <Charts history={timings} />
+      {/*<Charts history={timings} />*/}
       {/*<CalendarChart history={timings} />*/}
     </__>
   )

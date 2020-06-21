@@ -20,7 +20,7 @@ export const Charts: React.FC<{ history: PostAnalytics[] }> = p => {
         <TabPane tab="Monthly Breakdown" key="2">
           <RoseChart history={p.history} />
         </TabPane>
-        <TabPane tab="Tab 3" key="3">
+        <TabPane tab="Heat Map" key="3">
           <CalendarChart history={p.history} />
         </TabPane>
       </Tabs>
