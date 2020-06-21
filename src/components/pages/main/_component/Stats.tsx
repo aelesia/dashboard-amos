@@ -46,7 +46,16 @@ export const Stats: React.FC<{
 
   return (
     <__ row>
-      <div style={{ backgroundColor: 'red' }} onClick={() => Modal.render(() => <Text>Hehe</Text>)}>
+      <div
+        style={{ backgroundColor: 'red' }}
+        onClick={() => {
+          Modal.render(() => <Text>Hehe</Text>).then(it => console.log('hehe'))
+          setTimeout(
+            () => Modal.render(() => <Text>Hoho</Text>).then(it => console.log('hoho')),
+            1000
+          )
+        }}
+      >
         Click Me
       </div>
       <StatCard>

@@ -1,5 +1,6 @@
 import React, { ReactElement } from 'react'
 import { UninitializedErr } from '@aelesia/commons'
+import { v4 as uuid } from 'uuid'
 
 /** SAMPLE
  const App: React.FC = () => {
@@ -19,14 +20,14 @@ class Modal {
     this.modal = modal
   }
 
-  render(element: () => ReactElement) {
+  render<T = undefined>(element: () => ReactElement): Promise<T> {
     if (this.modal == null) {
       throw new UninitializedErr(
         'Modal not initialized. Please render <Modal> in the top level component and call setModal(ref)'
       )
     }
     // if (typeof element === 'function') {
-    this.modal.render(element())
+    return this.modal.render(element(), uuid())
     // } else {
     //   this.modal.render(element)
     // }

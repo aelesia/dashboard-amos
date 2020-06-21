@@ -2,9 +2,24 @@ import React, { forwardRef, ReactElement, useImperativeHandle, useState } from '
 import { Modal } from 'antd'
 import { Text } from 'src/components/wrapper/RNWrapper'
 
+type ModalInfo = {
+  visibility: boolean
+  reactElement: ReactElement
+  uuid: string
+}
+
+type ModalInfo2 = Record<
+  string,
+  {
+    visibility: boolean
+    reactElement: ReactElement
+  }
+>
+
 export const MyModal = forwardRef((props, ref) => {
   const [visibility, setVisibility] = useState<boolean>(false)
-  // const [reactElement, setReactElement] = useState<ReactElement>(<Text>{'{modal}'}</Text>)
+  const [reactElement, setReactElement] = useState<ReactElement>(<Text>{'{modal}'}</Text>)
+  const [modalInfoList, setModalInfoList] = useState<ModalInfo[]>([])
 
   useImperativeHandle(ref, () => ({
     // /**
@@ -16,36 +31,46 @@ export const MyModal = forwardRef((props, ref) => {
     //   }
     //   setVisibility(false)
     // },
-    async render<T>(element: ReactElement): Promise<T> {
-      if (visibility) {
-        console.warn('[Modal]: Modal render was called before it was closed')
-      }
+    async render<T>(element: ReactElement, uuid: string): Promise<T> {
+      // if (visibility) {
+      //   console.warn('[Modal]: Modal render was called before it was closed')
+      // }
+
       return new Promise((res, rej) => {
         const ok = (result: T | undefined) => {
-          setVisibility(false)
+          // setVisibility(false)
           res(result)
         }
         const cancel = () => {
-          setVisibility(false)
+          // setVisibility(false)
           rej()
         }
         const props = { ...element.props, ...{ modal: { ok, cancel } } }
-        // setReactElement(React.createElement(element.type, props))
-        setVisibility(true)
+        const modalInfo = {
+          visibility: true,
+          reactElement: React.createElement(element.type, props),
+          uuid: uuid
+        }
+        setModalInfoList(prev => [...prev, modalInfo])
       })
     }
   }))
 
   // BUG: Modal flashes sometimes
   return (
-    <Modal
-      visible={visibility}
-      onCancel={() => setVisibility(false)}
-      cancelButtonProps={{ hidden: true }}
-      okButtonProps={{ hidden: true }}
-      footer={null}
-    >
-      <Text>Hehe</Text>
-    </Modal>
+    <>
+      {modalInfoList.map(it => (
+        <Modal
+          key={it.uuid}
+          visible={it.visibility}
+          onCancel={() => setModalInfoList(prev => prev.filter(prevIt => prevIt.uuid !== it.uuid))}
+          cancelButtonProps={{ hidden: true }}
+          okButtonProps={{ hidden: true }}
+          footer={null}
+        >
+          {it.reactElement}
+        </Modal>
+      ))}
+    </>
   )
 })
