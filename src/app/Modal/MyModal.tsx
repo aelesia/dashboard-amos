@@ -13,45 +13,33 @@ type ModalInfo2 = Record<
   {
     visibility: boolean
     reactElement: ReactElement
+    res: Function
+    rej: Function
   }
 >
 
 export const MyModal = forwardRef((props, ref) => {
-  const [visibility, setVisibility] = useState<boolean>(false)
-  const [reactElement, setReactElement] = useState<ReactElement>(<Text>{'{modal}'}</Text>)
-  const [modalInfoList, setModalInfoList] = useState<ModalInfo[]>([])
+  const [modalInfoList, setModalInfoList] = useState<ModalInfo2>({})
 
   useImperativeHandle(ref, () => ({
-    // /**
-    //  * @deprecated
-    //  */
-    // close() {
-    //   if (!visibility) {
-    //     console.warn('[Modal]: Modal close was called before it was rendered')
-    //   }
-    //   setVisibility(false)
-    // },
     async render<T>(element: ReactElement, uuid: string): Promise<T> {
-      // if (visibility) {
-      //   console.warn('[Modal]: Modal render was called before it was closed')
-      // }
-
       return new Promise((res, rej) => {
         const ok = (result: T | undefined) => {
-          // setVisibility(false)
           res(result)
         }
         const cancel = () => {
-          // setVisibility(false)
           rej()
         }
         const props = { ...element.props, ...{ modal: { ok, cancel } } }
         const modalInfo = {
-          visibility: true,
-          reactElement: React.createElement(element.type, props),
-          uuid: uuid
+          [uuid]: {
+            reactElement: React.createElement(element.type, props),
+            visibility: true,
+            res,
+            rej
+          }
         }
-        setModalInfoList(prev => [...prev, modalInfo])
+        setModalInfoList(prev => Object.assign(modalInfo, prev))
       })
     }
   }))
@@ -59,16 +47,22 @@ export const MyModal = forwardRef((props, ref) => {
   // BUG: Modal flashes sometimes
   return (
     <>
-      {modalInfoList.map(it => (
+      {Object.keys(modalInfoList).map(uuid => (
         <Modal
-          key={it.uuid}
-          visible={it.visibility}
-          onCancel={() => setModalInfoList(prev => prev.filter(prevIt => prevIt.uuid !== it.uuid))}
+          key={uuid}
+          visible={modalInfoList[uuid].visibility}
+          onCancel={() => {
+            setModalInfoList(prev => {
+              prev[uuid].visibility = false
+              return { ...prev }
+            })
+            modalInfoList[uuid].res()
+          }}
           cancelButtonProps={{ hidden: true }}
           okButtonProps={{ hidden: true }}
           footer={null}
         >
-          {it.reactElement}
+          {modalInfoList[uuid].reactElement}
         </Modal>
       ))}
     </>
