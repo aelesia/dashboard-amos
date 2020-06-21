@@ -7,6 +7,7 @@ import { Text } from 'src/components/wrapper/RNWrapper'
 import Tabs from 'antd/es/tabs'
 import { __ } from 'src/components/base/__'
 import { sp } from 'src/style/Style'
+import { CalendarChart } from 'src/components/pages/main/_component/Charts/_component/CalendarChart'
 const { TabPane } = Tabs
 
 export const Charts: React.FC<{ history: PostAnalytics[] }> = p => {
@@ -20,7 +21,7 @@ export const Charts: React.FC<{ history: PostAnalytics[] }> = p => {
           <RoseChart history={p.history} />
         </TabPane>
         <TabPane tab="Tab 3" key="3">
-          Content of Tab Pane 3
+          <CalendarChart history={p.history} />
         </TabPane>
       </Tabs>
     </__>

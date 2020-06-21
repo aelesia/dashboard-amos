@@ -9,6 +9,7 @@ import { Stats } from 'src/components/pages/main/_component/Stats'
 import { MyChart } from 'src/components/pages/main/_component/Charts/_component/MyChart'
 import { RoseChart } from 'src/components/pages/main/_component/Charts/_component/RoseChart'
 import { Charts } from 'src/components/pages/main/_component/Charts/Charts'
+import { CalendarChart } from 'src/components/pages/main/_component/Charts/_component/CalendarChart'
 
 export const MainData: React.FC = () => {
   console.log('mainpage')
@@ -53,6 +54,7 @@ export const MainPage: React.FC<{
       <Counter lastPostDate={history.first().date} longestPost={longestPost} />
       <Stats history={timings} longestPost={longestPost} shortestPost={shortestPost} />
       <Charts history={timings} />
+      {/*<CalendarChart history={timings} />*/}
     </__>
   )
 }

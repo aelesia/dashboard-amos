@@ -50,6 +50,7 @@ export const RoseChart: React.FC<{ history: PostAnalytics[] }> = p => {
       showMarkers: false
     })
     chart.legend(false)
+
     chart
       .scale({
         count: {
@@ -60,14 +61,16 @@ export const RoseChart: React.FC<{ history: PostAnalytics[] }> = p => {
       })
       .interval()
       .position('month*count')
-      .label('month', {
-        offset: 15
+      .label('count', {
+        offset: -15,
+        content: it => (it.count > 1 ? it.count : '')
       })
       .color('month')
       .style({
         lineWidth: 1,
         stroke: '#fff'
       })
+    chart.point().position('month*count').shape('none').label('month')
     chart.render()
   }, [])
   return <div id={id} />
