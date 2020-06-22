@@ -12,6 +12,7 @@ import { prettyTime } from 'src/utils/Format'
 import { LinkTo } from '@storybook/addon-links'
 import { Link } from 'react-router-dom'
 import Modal from 'src/app/Modal/Modal'
+import { LongestRecord } from 'src/components/pages/main/_component/LongestRecord'
 
 function median(posts: PostAnalytics[]) {
   const durationArray = posts.map(it => it.duration).sort((num, num2) => num - num2)
@@ -49,11 +50,12 @@ export const Stats: React.FC<{
       <div
         style={{ backgroundColor: 'red' }}
         onClick={() => {
-          Modal.render(() => <Text>Hehe</Text>).then(it => console.log('hehe'))
-          setTimeout(
-            () => Modal.render(() => <Text>Hoho</Text>).then(it => console.log('hoho')),
-            1000
-          )
+          Modal.render(<LongestRecord history={p.history} />)
+          // Modal.render(() => <Text>Hehe</Text>).then(it => console.log('hehe'))
+          // setTimeout(
+          //   () => Modal.render(() => <Text>Hoho</Text>).then(it => console.log('hoho')),
+          //   1000
+          // )
         }}
       >
         Click Me

@@ -21,5 +21,5 @@ export type TextProps = CSSArray<HTMLAttributes<HTMLSpanElement>>
 export function Text(props: HTMLAttributes<HTMLSpanElement>) {
   const style: CSSProperties = { fontFamily: 'Roboto' }
   Object.assign(style, props.style)
-  return <span {...props} style={style} />
+  return <div {...props} style={style} />
 }

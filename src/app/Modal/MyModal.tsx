@@ -22,7 +22,7 @@ export const MyModal = forwardRef((props, ref) => {
   const [modalInfoList, setModalInfoList] = useState<ModalInfo2>({})
 
   useImperativeHandle(ref, () => ({
-    async render<T>(element: ReactElement, uuid: string): Promise<T> {
+    async render<T>(element: ReactElement, uuid: string, reject = false): Promise<T> {
       return new Promise((res, rej) => {
         const ok = (result: T | undefined) => {
           res(result)
@@ -36,7 +36,7 @@ export const MyModal = forwardRef((props, ref) => {
             reactElement: React.createElement(element.type, props),
             visibility: true,
             res,
-            rej
+            rej: reject ? rej : res
           }
         }
         setModalInfoList(prev => Object.assign(modalInfo, prev))
@@ -56,7 +56,7 @@ export const MyModal = forwardRef((props, ref) => {
               prev[uuid].visibility = false
               return { ...prev }
             })
-            modalInfoList[uuid].res()
+            modalInfoList[uuid].rej()
           }}
           cancelButtonProps={{ hidden: true }}
           okButtonProps={{ hidden: true }}

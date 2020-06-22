@@ -20,17 +20,17 @@ class Modal {
     this.modal = modal
   }
 
-  render<T = undefined>(element: () => ReactElement): Promise<T> {
+  render<T = undefined>(element: ReactElement | (() => ReactElement)): Promise<T> {
     if (this.modal == null) {
       throw new UninitializedErr(
         'Modal not initialized. Please render <Modal> in the top level component and call setModal(ref)'
       )
     }
-    // if (typeof element === 'function') {
-    return this.modal.render(element(), uuid())
-    // } else {
-    //   this.modal.render(element)
-    // }
+    if (typeof element === 'function') {
+      return this.modal.render(element(), uuid())
+    } else {
+      return this.modal.render(element, uuid())
+    }
   }
 
   // close() {
