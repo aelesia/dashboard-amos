@@ -1,11 +1,12 @@
 import React, { CSSProperties, useEffect, useMemo, useState } from 'react'
-import { Duration } from '@aelesia/commons/dist/src/collections/util/TimeUtil'
+import { Duration, TimeUtil } from '@aelesia/commons/dist/src/collections/util/TimeUtil'
 import { _ } from '@aelesia/commons'
 import { sp } from 'src/style/Style'
 import { Chart } from '@antv/g2'
 import { v4 as uuid } from 'uuid'
 import { PostAnalytics } from 'src/data/types/Types.type'
 import { prettyTime } from 'src/utils/Format'
+import { Format } from '@aelesia/commons/dist/src/collections/Format'
 
 export const MyChart: React.FC<{ history: PostAnalytics[] }> = p => {
   const [id] = useState(uuid())
@@ -35,7 +36,10 @@ export const MyChart: React.FC<{ history: PostAnalytics[] }> = p => {
       }
     })
 
-    chart.interval().position('index*value')
+    chart
+      .interval()
+      .position('index*value')
+      .color('value', '#DCEDC8-#DCEDC8-#42B3D5-#42B3D5-#1A237E-#1A237E-#1A237E-#1A237E')
 
     chart.render()
   }, [])

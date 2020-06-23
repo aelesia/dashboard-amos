@@ -18,8 +18,16 @@ export function View(props: ViewProps) {
 }
 
 export type TextProps = CSSArray<HTMLAttributes<HTMLSpanElement>>
-export function Text(props: HTMLAttributes<HTMLSpanElement>) {
+export function Text(props: TextProps) {
   const style: CSSProperties = { fontFamily: 'Roboto' }
-  Object.assign(style, props.style)
+  if (style) {
+    if (Array.isArray(props.style)) {
+      props.style.forEach(s => {
+        Object.assign(style, s)
+      })
+    } else {
+      Object.assign(style, props.style)
+    }
+  }
   return <div {...props} style={style} />
 }

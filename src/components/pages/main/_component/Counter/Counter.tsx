@@ -4,7 +4,7 @@ import { _ } from '@aelesia/commons'
 import { Duration } from '@aelesia/commons/dist/src/collections/util/TimeUtil'
 import { useForceUpdate } from 'src/hooks/useForceUpdate'
 import { __ } from 'src/components/base/__'
-import { sp, sz } from 'src/style/Style'
+import { cl, sp, sz, wt } from 'src/style/Style'
 import { Card, Modal } from 'antd'
 import { PostAnalytics } from 'src/data/types/Types.type'
 import { ProgressBar } from 'src/components/pages/main/_component/Counter/_component/ProgressBar'
@@ -17,8 +17,10 @@ const Box: React.FC<{
 
   return (
     <View style={{ alignItems: 'center', marginLeft: sp.sm, marginRight: sp.sm }}>
-      <Text style={{ fontSize: sz.lg, fontWeight: 400 }}>{number}</Text>
-      <Text style={{ textTransform: 'uppercase', fontWeight: 100 }}>{text}</Text>
+      <Text style={{ fontSize: 36, fontFamily: 'Roboto Mono', fontWeight: wt._700 }}>{number}</Text>
+      <Text style={{ textTransform: 'uppercase', fontWeight: wt._300, color: cl.grey3 }}>
+        {text}
+      </Text>
     </View>
   )
 }
@@ -38,7 +40,7 @@ export const Counter: React.FC<{
   }, [])
 
   return (
-    <Card style={{ padding: 0, margin: sp.xxs }} hoverable>
+    <Card style={{ padding: 0, margin: sp.xxs }}>
       <__ row style={{ justifyContent: 'center' }}>
         <Box number={duration.days} text={'days'} />
         <Box number={duration.hours} text={'hours'} />

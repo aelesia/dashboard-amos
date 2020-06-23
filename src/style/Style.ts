@@ -46,5 +46,6 @@ export const cl = {
   black: '#000',
   dark_purple: '#1F1237',
   red: '#E4100E',
-  green: '#36A93F'
+  green: '#36A93F',
+  link: '#1890ff'
 }
