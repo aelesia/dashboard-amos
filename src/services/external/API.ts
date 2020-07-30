@@ -3,8 +3,6 @@ import { Cfg } from '../../app/Cfg'
 import { PostHistory } from '../../data/types/Types.type'
 import { _ } from '@aelesia/commons'
 
-
-
 const http = Http.url(Cfg.BACKEND_URL)
 
 type ResponsePosts = {

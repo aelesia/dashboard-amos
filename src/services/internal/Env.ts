@@ -10,7 +10,6 @@ function envReact(environment: string): string {
   return env(environment)
 }
 
-
 function env(env: string): string {
   const envvar = process.env[env]
   if (envvar == null || envvar === '') {

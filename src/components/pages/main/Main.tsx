@@ -16,7 +16,7 @@ export const MainData: React.FC = () => {
   }, [])
 
   if (posts) {
-    return <MainPage history={mapTimings(posts)}/>
+    return <MainPage history={mapTimings(posts)} />
   }
   return <Text>Loading</Text>
 }
