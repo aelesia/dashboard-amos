@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import { Duration } from '@aelesia/commons/dist/src/collections/util/TimeUtil'
 import { _ } from '@aelesia/commons'
 import { Chart } from '@antv/g2'
 import { v4 as uuid } from 'uuid'
@@ -9,7 +8,7 @@ import { prettyTime } from 'src/utils/Format'
 export const MyChart: React.FC<{ history: PostAnalytics[] }> = p => {
   const [id] = useState(uuid())
   useEffect(() => {
-    const values = p.history.reverse().map((it, index) => ({
+    const values = p.history.reverse().map(it => ({
       index: it.post.date._f('DD MMM YY HH:mm'),
       value: it.duration / _.time.ONE_HOUR
     }))

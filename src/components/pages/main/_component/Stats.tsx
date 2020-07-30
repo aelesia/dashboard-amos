@@ -9,10 +9,15 @@ import Modal from 'src/app/Modal/Modal'
 import { PostTimeline } from 'src/components/pages/main/_component/PostTimeline'
 import { RightOutlined } from '@ant-design/icons'
 
-function median(posts: PostAnalytics[]) {
-  const durationArray = posts.map(it => it.duration).sort((num, num2) => num - num2)
-  return durationArray[durationArray.length / 2]
-}
+/**
+ * FIXME: Commented Code
+ * Unsure if this code is still needed to calculate median
+ * Remove by: 1st Jan 2021
+ */
+// function median(posts: PostAnalytics[]) {
+//   const durationArray = posts.map(it => it.duration).sort((num, num2) => num - num2)
+//   return durationArray[durationArray.length / 2]
+// }
 
 function average(posts: PostAnalytics[]) {
   const sum = posts.map(it => it.duration).reduce((time, value) => time + value)

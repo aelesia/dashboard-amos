@@ -36,7 +36,7 @@ export const CalendarChart: React.FC<{ history: PostAnalytics[] }> = p => {
       data[it.post.date.toDateString()] = ++data[it.post.date.toDateString()]
     })
     const array: any[] = []
-    Object.entries(data).forEach((value, index) => {
+    Object.entries(data).forEach(value => {
       array.push({
         date: value[0],
         count: value[1]
