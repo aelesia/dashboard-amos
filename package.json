@@ -43,9 +43,10 @@
     "typescript": "^3.9.5"
   },
   "scripts": {
-    "env": "npx @siliconjungles/rn-scripts replace_files path=env/${ENV:-local}/.cfg.${ENV:-local}",
-    "start": "yarn env && TSC_COMPILE_ON_ERROR=true PORT=${PORT:-3080} react-scripts start",
-    "build": "react-scripts build",
+    "env": "npx @siliconjungles/rn-scripts replace_files path=env/${ENV}/.cfg.${ENV}",
+    "start": "ENV=${ENV:-local} yarn env && TSC_COMPILE_ON_ERROR=true PORT=${PORT:-3080} react-scripts start",
+    "_build": "react-scripts build",
+    "build": "yarn env && yarn _build",
     "test": "react-scripts test",
     "test_all": "yarn test --watchAll=false",
     "test_coverage": "yarn test -- --coverage --watchAll=false --collectCoverageFrom=**/src/utils/**",

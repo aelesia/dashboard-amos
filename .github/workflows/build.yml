@@ -50,7 +50,7 @@ jobs:
 
 
   deploy:
-    if: contains(github.ref, 'refs/heads/develop') || contains(github.ref, 'refs/heads/master')
+    if: contains(github.ref, 'refs/heads/develop') || contains(github.ref, 'refs/heads/master') || contains(github.ref, 'refs/heads/ci')
     needs: [compile,test_coverage]
     runs-on: ubuntu-latest
     steps:
@@ -68,11 +68,11 @@ jobs:
       - if: steps.cache_node_modules.outputs.cache-hit != 'true'
         run: yarn install
 
-      - if: contains(github.ref, 'refs/heads/develop')
-        run: ENV=develop yarn env && cat .env && yarn _build
+      - if: contains(github.ref, 'refs/heads/develop') || contains(github.ref, 'refs/heads/ci')
+        run: ENV=develop yarn build
 
       - uses: netlify/actions/cli@master
-        if: contains(github.ref, 'refs/heads/develop')
+        if: contains(github.ref, 'refs/heads/develop') || contains(github.ref, 'refs/heads/ci')
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ''
@@ -81,7 +81,7 @@ jobs:
           secrets: '["NETLIFY_AUTH_TOKEN", "32dec934-2c27-484c-b1af-313ec52f6e64"]'
 
       - if: contains(github.ref, 'refs/heads/master')
-        run: ENV=production yarn env && cat .env && yarn _build
+        run: ENV=production yarn build
 
       - uses: netlify/actions/cli@master
         if: contains(github.ref, 'refs/heads/master')
