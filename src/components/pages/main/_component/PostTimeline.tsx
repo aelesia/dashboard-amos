@@ -1,11 +1,10 @@
 import React from 'react'
 import { PostAnalytics } from 'src/data/types/Types.type'
-import { Tag, Timeline } from 'antd'
+import { Timeline } from 'antd'
 import { prettyTime } from 'src/utils/Format'
 import { __ } from 'src/components/base/__'
 import { cl, sz, wt } from 'src/style/Style'
 import Paragraph from 'antd/es/typography/Paragraph'
-import { Link } from 'react-router-dom'
 import { Text } from 'src/components/wrapper/RNWrapper'
 
 export const ShortDate: React.FC<{

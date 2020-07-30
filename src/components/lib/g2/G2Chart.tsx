@@ -2,7 +2,6 @@ import React, { CSSProperties, useEffect, useState } from 'react'
 import { Chart } from '@antv/g2'
 import { ChartCfg, Datum } from '@antv/g2/esm/interface'
 import { v4 as uuid } from 'uuid'
-import { sp } from 'src/style/Style'
 
 export const G2Chart: React.FC<
   {

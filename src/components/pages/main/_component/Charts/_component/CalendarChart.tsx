@@ -1,18 +1,10 @@
-import React, { CSSProperties, useEffect, useState } from 'react'
-import { Duration, TimeUtil } from '@aelesia/commons/dist/src/collections/util/TimeUtil'
-import { IllegalStateErr } from '@aelesia/commons/dist/src/error/Error'
-import { useForceUpdate } from 'src/hooks/useForceUpdate'
-import { Card } from 'antd'
-import { sp, sz } from 'src/style/Style'
-import { __ } from 'src/components/base/__'
-import { Text, View } from 'src/components/wrapper/RNWrapper'
+import React, { useEffect, useState } from 'react'
+import { TimeUtil } from '@aelesia/commons/dist/src/collections/util/TimeUtil'
 import { Chart } from '@antv/g2'
-import { G2Chart } from 'src/components/lib/g2/G2Chart'
 import DataSet from '@antv/data-set'
-import { ChartCfg, Datum } from '@antv/g2/esm/interface'
 import { v4 as uuid } from 'uuid'
 import { PostAnalytics } from 'src/data/types/Types.type'
-import { prettyTime } from 'src/utils/Format'
+
 const MONTHS = [
   'January',
   'February',

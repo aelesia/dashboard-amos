@@ -1,6 +1,3 @@
-import { TimeUtil } from '@aelesia/commons/dist/src/collections/util/TimeUtil'
-import { _ } from '@aelesia/commons'
-
 export function prettyTime(duration: number): string {
   if (duration < 120000) {
     return `${Math.floor(duration / 1000)} secs`

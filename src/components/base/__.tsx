@@ -1,4 +1,4 @@
-import React, { CSSProperties, HTMLAttributes } from 'react'
+import React, { CSSProperties } from 'react'
 import { sp, StyleSpace } from 'src/style/Style'
 import { View, ViewProps } from 'src/components/wrapper/RNWrapper'
 

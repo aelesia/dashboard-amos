@@ -1,4 +1,4 @@
-import React, { CSSProperties, DetailedHTMLFactory, HTMLAttributes } from 'react'
+import React, { CSSProperties, HTMLAttributes } from 'react'
 
 type CSSArray<T> = Omit<T, 'style'> & { style?: CSSProperties | CSSProperties[] }
 

@@ -1,12 +1,10 @@
-import React, { CSSProperties, useEffect, useMemo, useState } from 'react'
-import { Duration, TimeUtil } from '@aelesia/commons/dist/src/collections/util/TimeUtil'
+import React, { useEffect, useState } from 'react'
+import { Duration } from '@aelesia/commons/dist/src/collections/util/TimeUtil'
 import { _ } from '@aelesia/commons'
-import { sp } from 'src/style/Style'
 import { Chart } from '@antv/g2'
 import { v4 as uuid } from 'uuid'
 import { PostAnalytics } from 'src/data/types/Types.type'
 import { prettyTime } from 'src/utils/Format'
-import { Format } from '@aelesia/commons/dist/src/collections/Format'
 
 export const MyChart: React.FC<{ history: PostAnalytics[] }> = p => {
   const [id] = useState(uuid())

@@ -1,6 +1,5 @@
 import React, { forwardRef, ReactElement, useImperativeHandle, useState } from 'react'
 import { Modal } from 'antd'
-import { Text } from 'src/components/wrapper/RNWrapper'
 
 type ModalInfo = {
   visibility: boolean

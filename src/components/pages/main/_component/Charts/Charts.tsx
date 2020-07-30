@@ -1,13 +1,12 @@
-import React, { ReactElement } from 'react'
-import { Carousel } from 'antd'
+import React from 'react'
 import { PostAnalytics } from 'src/data/types/Types.type'
 import { MyChart } from 'src/components/pages/main/_component/Charts/_component/MyChart'
 import { RoseChart } from 'src/components/pages/main/_component/Charts/_component/RoseChart'
-import { Text } from 'src/components/wrapper/RNWrapper'
 import Tabs from 'antd/es/tabs'
 import { __ } from 'src/components/base/__'
 import { sp } from 'src/style/Style'
 import { CalendarChart } from 'src/components/pages/main/_component/Charts/_component/CalendarChart'
+
 const { TabPane } = Tabs
 
 export const Charts: React.FC<{ history: PostAnalytics[] }> = p => {
