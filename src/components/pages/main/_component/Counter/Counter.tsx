@@ -40,7 +40,7 @@ export const Counter: React.FC<{
   }, [])
 
   return (
-    <Card style={{ padding: 0, margin: sp.xxs }}>
+    <__ style={{ margin: sp.xs }}>
       <__ row style={{ justifyContent: 'center' }}>
         <Box number={duration.days} text={'days'} />
         <Box number={duration.hours} text={'hours'} />
@@ -48,6 +48,6 @@ export const Counter: React.FC<{
         <Box number={duration.secs} text={'seconds'} />
       </__>
       <ProgressBar percent={percent} />
-    </Card>
+    </__>
   )
 }

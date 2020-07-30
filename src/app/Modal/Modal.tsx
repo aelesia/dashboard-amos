@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react'
-import { UninitializedErr } from '@aelesia/commons'
 import { v4 as uuid } from 'uuid'
+import { UninitializedErr } from '@aelesia/commons/dist/src/error/Error'
 
 /** SAMPLE
  const App: React.FC = () => {

@@ -1,6 +1,6 @@
 import React, { CSSProperties, useEffect, useState } from 'react'
 import { Duration } from '@aelesia/commons/dist/src/collections/util/TimeUtil'
-import { _, IllegalStateErr } from '@aelesia/commons'
+import { IllegalStateErr } from '@aelesia/commons/dist/src/error/Error'
 import { useForceUpdate } from 'src/hooks/useForceUpdate'
 import { Card } from 'antd'
 import { sp, sz } from 'src/style/Style'

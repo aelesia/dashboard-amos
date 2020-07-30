@@ -7,7 +7,7 @@ export type PostHistory = {
   thread_id: string
   title: string
   url: string
-  parent_id: string
+  parent_id?: string
 }
 
 export type PostAnalytics = {

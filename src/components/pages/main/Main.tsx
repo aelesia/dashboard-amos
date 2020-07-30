@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { Counter } from 'src/components/pages/main/_component/Counter/Counter'
 import { PostAnalytics, PostHistory } from 'src/data/types/Types.type'
 import history from 'src/data/data.json'
@@ -6,25 +6,19 @@ import { _ } from '@aelesia/commons'
 import { __ } from 'src/components/base/__'
 import { Stats } from 'src/components/pages/main/_component/Stats'
 import { Charts } from 'src/components/pages/main/_component/Charts/Charts'
+import { API } from '../../../services/external/API'
+import { Text } from '../../wrapper/RNWrapper'
 
 export const MainData: React.FC = () => {
-  return (
-    <MainPage
-      history={history.map<PostHistory>(it => {
-        return {
-          title: it.title,
-          parent_id: it.parent_id,
-          thread_id: it.thread_id,
-          url: it.url,
-          kind: it.kind,
-          body: it.body,
-          author: it.author,
-          date: _.date.parse(it.date),
-          id: it.id
-        }
-      })}
-    />
-  )
+  const [posts, setPosts] = useState<PostHistory[]>()
+  useEffect(() => {
+    API.posts().then(d => setPosts(d))
+  }, [])
+
+  if (posts) {
+    return <MainPage history={mapTimings(posts)}/>
+  }
+  return <Text>Loading</Text>
 }
 
 function mapTimings(history: PostHistory[]): PostAnalytics[] {
@@ -57,18 +51,16 @@ function longest(posts: PostAnalytics[]): PostAnalytics {
 }
 
 export const MainPage: React.FC<{
-  history: PostHistory[]
+  history: PostAnalytics[]
 }> = p => {
-  const { history } = p
-  const timings = useMemo(() => mapTimings(history), [history])
-  const longestPost = longest(timings)
-  const shortestPost = shortest(timings)
+  const longestPost = longest(p.history)
+  const shortestPost = shortest(p.history)
 
   return (
     <__ style={{ maxWidth: 960, margin: 'auto' }}>
-      <Counter lastPostDate={history.first().date} longestPost={longestPost} />
-      <Stats history={timings} longestPost={longestPost} shortestPost={shortestPost} />
-      <Charts history={timings} />
+      <Counter lastPostDate={p.history.first().post.date} longestPost={longestPost} />
+      <Stats history={p.history} longestPost={longestPost} shortestPost={shortestPost} />
+      <Charts history={p.history} />
     </__>
   )
 }
