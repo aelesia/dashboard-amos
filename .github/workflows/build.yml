@@ -76,10 +76,10 @@ jobs:
         if: contains(github.ref, 'refs/heads/develop') || contains(github.ref, 'refs/heads/ci')
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-          NETLIFY_SITE_ID: ''
+          NETLIFY_SITE_ID: '32dec934-2c27-484c-b1af-313ec52f6e64'
         with:
           args: deploy --dir=build --prod
-          secrets: '["NETLIFY_AUTH_TOKEN", "32dec934-2c27-484c-b1af-313ec52f6e64"]'
+          secrets: '["NETLIFY_AUTH_TOKEN", "NETLIFY_SITE_ID"]'
 
       - if: contains(github.ref, 'refs/heads/master')
         run: ENV=production yarn env && cat .env && CI=false yarn _build
@@ -88,7 +88,7 @@ jobs:
         if: contains(github.ref, 'refs/heads/master')
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-          NETLIFY_SITE_ID: ''
+          NETLIFY_SITE_ID: '7510f879-b02a-41ad-b230-f1383343f64f'
         with:
           args: deploy --dir=build --prod
-          secrets: '["NETLIFY_AUTH_TOKEN", "7510f879-b02a-41ad-b230-f1383343f64f"]'
+          secrets: '["NETLIFY_AUTH_TOKEN", "NETLIFY_SITE_ID"]'
