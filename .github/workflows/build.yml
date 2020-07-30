@@ -70,7 +70,7 @@ jobs:
         run: yarn install
 
       - if: contains(github.ref, 'refs/heads/develop') || contains(github.ref, 'refs/heads/ci')
-        run: ENV=develop yarn build
+        run: ENV=develop yarn env && cat .env && CI=false yarn _build
 
       - uses: netlify/actions/cli@master
         if: contains(github.ref, 'refs/heads/develop') || contains(github.ref, 'refs/heads/ci')
@@ -82,7 +82,7 @@ jobs:
           secrets: '["NETLIFY_AUTH_TOKEN", "32dec934-2c27-484c-b1af-313ec52f6e64"]'
 
       - if: contains(github.ref, 'refs/heads/master')
-        run: ENV=production yarn build
+        run: ENV=production yarn env && cat .env && CI=false yarn _build
 
       - uses: netlify/actions/cli@master
         if: contains(github.ref, 'refs/heads/master')
