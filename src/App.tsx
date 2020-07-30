@@ -1,24 +1,20 @@
 import React from 'react'
-import logo from './logo.svg'
 import './App.css'
-import {Cfg} from "./app/Cfg";
+import { extend } from '@aelesia/commons-ext'
+import { MainData } from './components/pages/main/Main'
+import 'antd/dist/antd.css'
+import { BrowserRouter } from 'react-router-dom'
+import { MyModal } from 'src/app/Modal/MyModal'
+import Modal from 'src/app/Modal/Modal'
+
+extend.all()
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload
-        </p>
-        <p>
-          Environment: {Cfg.ENVIRONMENT}
-        </p>
-        <a className="App-link" href="https://reactjs.org" target="_blank" rel="noopener noreferrer">
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <MyModal ref={ref => Modal.setModal(ref)} />
+      <MainData />
+    </BrowserRouter>
   )
 }
 

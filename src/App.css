@@ -36,3 +36,14 @@
     transform: rotate(360deg);
   }
 }
+
+.ant-carousel .slick-dots button {
+  margin-top: 12px !important;
+  background:#666 !important;
+  height: 5px !important;
+  border-radius: 5px !important;
+}
+.ant-carousel .slick-dots li {
+  width: 36px !important
+}
+
